@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://b5gdo8myi4tb0"]
+[gd_scene load_steps=2 format=3 uid="uid://b5gdo8myi4tb0"]
+
+[ext_resource type="PackedScene" uid="uid://c34r5qccnw4jj" path="res://scenes/towers/tower_baisc.tscn" id="1_lhe7d"]
 
 [node name="Game" type="Node2D"]
+
+[node name="Node2D" parent="." instance=ExtResource("1_lhe7d")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
