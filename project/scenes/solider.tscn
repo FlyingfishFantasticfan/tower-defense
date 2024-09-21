@@ -399,7 +399,7 @@ region_rect = Rect2(48, 0, 16, 16)
 sprite_frames = SubResource("SpriteFrames_xul1q")
 animation = &"idle_buttom"
 autoplay = "idle_buttom"
-frame_progress = 0.859404
+frame_progress = 0.667428
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
