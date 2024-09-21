@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrt58"]
 size = Vector2(313, 169)
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 script = ExtResource("1_norv0")
 
 [node name="Area2D" type="Area2D" parent="."]

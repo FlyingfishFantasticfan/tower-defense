@@ -386,8 +386,6 @@ script = ExtResource("2_otdo1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2bebi")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-
 [node name="Highlighted-boxes" type="Sprite2D" parent="."]
 position = Vector2(0.255005, 5.384)
 scale = Vector2(0.5, 0.25)
@@ -399,7 +397,7 @@ region_rect = Rect2(48, 0, 16, 16)
 sprite_frames = SubResource("SpriteFrames_xul1q")
 animation = &"idle_buttom"
 autoplay = "idle_buttom"
-frame_progress = 0.667428
+frame_progress = 0.0372576
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

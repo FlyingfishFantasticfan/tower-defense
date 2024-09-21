@@ -10,30 +10,34 @@ enum Direction{
 
 var direction : Direction = Direction.buttom
 var is_selected : bool = false
-var target_position :Vector2 = position
+var target_position :Vector2
 var is_moving :bool = false
 var is_working :bool = false
+
 
 @onready var highlighted_boxes: Sprite2D = $"Highlighted-boxes"
 @onready var animation: AnimatedSprite2D = $animation
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
+
 @export var SPEED : float = 200
 @export var HP :int = 100
-@export var ABILITY: int = 5  #同时是攻击力、建造速度、采集速度
+@export var HTK: int = 5  #同时是攻击力、建造速度、采集速度
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
+	target_position = position
 	highlighted_boxes.visible = false
 	pass # Replace with function body.
 
 
-func _physics_process(delta: float) -> void:	
-	if position.distance_to(target_position) > 10:
+func _physics_process(delta: float) -> void:
+	
+	if position.distance_to(target_position) > 20:
 		velocity = position.direction_to(target_position) * SPEED
 		move_and_slide()
 	else:
-		position = target_position
 		velocity = Vector2(0 ,0)
 	
 #更新移动状态
@@ -98,10 +102,13 @@ func update_anim() -> void :
 
 
 
-func _set_new_target() ->void:
+func _set_new_target(target) ->void:
 	if is_selected:
 		is_selected = false
-		target_position = get_global_mouse_position()
+		target_position = target
 
-func _set_selected() -> void:
+func _set_selected(area) -> void:
+	var rect = highlighted_boxes.get_rect()
+	rect.position = to_global(rect.position)
+	if rect.intersects(area):
 		is_selected = not  is_selected
