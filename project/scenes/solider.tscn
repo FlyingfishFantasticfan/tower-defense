@@ -1,7 +1,11 @@
-[gd_scene load_steps=49 format=3 uid="uid://4w8k5qxcnxiu"]
+[gd_scene load_steps=50 format=3 uid="uid://4w8k5qxcnxiu"]
 
 [ext_resource type="Texture2D" uid="uid://qua3css6m1vj" path="res://assets/MiniWorldSprites/Characters/Workers/FarmerTemplate.png" id="1_mcikt"]
 [ext_resource type="Script" path="res://scripts/solider.gd" id="2_otdo1"]
+[ext_resource type="Texture2D" uid="uid://dthgbny48yya5" path="res://assets/MiniWorldSprites/User Interface/Highlighted-Boxes.png" id="2_ytu4t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bebi"]
+size = Vector2(8, 10)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4p6l"]
 atlas = ExtResource("1_mcikt")
@@ -374,24 +378,28 @@ animations = [{
 "speed": 24.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bebi"]
-size = Vector2(8, 10)
-
 [node name="solider" type="CharacterBody2D"]
 position = Vector2(230.745, 158.616)
 input_pickable = true
 script = ExtResource("2_otdo1")
 
-[node name="solider" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_xul1q")
-animation = &"idle_right"
-autoplay = "idle_buttom"
-frame_progress = 0.984554
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2bebi")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Highlighted-boxes" type="Sprite2D" parent="."]
+position = Vector2(0.255005, 5.384)
+scale = Vector2(0.5, 0.25)
+texture = ExtResource("2_ytu4t")
+region_enabled = true
+region_rect = Rect2(48, 0, 16, 16)
+
+[node name="animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xul1q")
+animation = &"idle_buttom"
+autoplay = "idle_buttom"
+frame_progress = 0.859404
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
