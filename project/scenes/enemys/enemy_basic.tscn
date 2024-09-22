@@ -1,6 +1,131 @@
-[gd_scene load_steps=2 format=3 uid="uid://debmi8rfw4eeo"]
+[gd_scene load_steps=14 format=3 uid="uid://debmi8rfw4eeo"]
 
 [ext_resource type="Script" path="res://scripts/enemys/enemy_basic.gd" id="1_kjgcm"]
+[ext_resource type="PackedScene" uid="uid://5odbmf74a71v" path="res://scenes/attract_zone.tscn" id="2_26x53"]
+[ext_resource type="Texture2D" uid="uid://v3xur4mhijp5" path="res://assets/MiniWorldSprites/Characters/Monsters/Demons/ArmouredRedDemon.png" id="3_upwc2"]
 
-[node name="EnemyBasic" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4klik"]
+radius = 68.0661
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e18rc"]
+radius = 39.0128
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enyu0"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_57be3"]
+radius = 7.07107
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fepwm"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53iry"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jibb4"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjdjv"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0o8h"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_47wti"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fepwm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53iry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jibb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjdjv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0o8h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyBasic" type="CharacterBody2D"]
+collision_layer = 5
 script = ExtResource("1_kjgcm")
+
+[node name="attract_zones" type="Node2D" parent="."]
+
+[node name="attact_zone3" parent="attract_zones" instance=ExtResource("2_26x53")]
+position = Vector2(0, -7)
+"优先度" = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attract_zones/attact_zone3"]
+shape = SubResource("CircleShape2D_4klik")
+debug_color = Color(0.734471, 0.241586, 0.984518, 0.42)
+
+[node name="attact_zone4" parent="attract_zones" instance=ExtResource("2_26x53")]
+position = Vector2(0, 7)
+"优先度" = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attract_zones/attact_zone4"]
+shape = SubResource("CircleShape2D_4klik")
+debug_color = Color(0.734471, 0.241586, 0.984518, 0.42)
+
+[node name="attact_zone" parent="attract_zones" instance=ExtResource("2_26x53")]
+position = Vector2(-7, 0)
+"优先度" = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attract_zones/attact_zone"]
+shape = SubResource("CircleShape2D_4klik")
+debug_color = Color(0.734471, 0.241586, 0.984518, 0.42)
+
+[node name="attact_zone2" parent="attract_zones" instance=ExtResource("2_26x53")]
+position = Vector2(7, 0)
+"优先度" = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attract_zones/attact_zone2"]
+shape = SubResource("CircleShape2D_4klik")
+debug_color = Color(0.734471, 0.241586, 0.984518, 0.42)
+
+[node name="vision_zone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vision_zone"]
+shape = SubResource("CircleShape2D_e18rc")
+debug_color = Color(0.0886739, 0.648804, 9.62615e-07, 0.42)
+
+[node name="attack_zone" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_zone"]
+shape = SubResource("CircleShape2D_enyu0")
+debug_color = Color(0.952199, 0.220219, 0, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_57be3")
+
+[node name="animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_47wti")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 1.0
+
+[connection signal="body_entered" from="attract_zones/attact_zone3" to="." method="_on_attact_zone_body_entered"]
+[connection signal="body_exited" from="attract_zones/attact_zone3" to="." method="_on_attact_zone_body_exited"]
+[connection signal="body_entered" from="attract_zones/attact_zone4" to="." method="_on_attact_zone_body_entered"]
+[connection signal="body_exited" from="attract_zones/attact_zone4" to="." method="_on_attact_zone_body_exited"]
+[connection signal="body_entered" from="attract_zones/attact_zone" to="." method="_on_attact_zone_body_entered"]
+[connection signal="body_exited" from="attract_zones/attact_zone" to="." method="_on_attact_zone_body_exited"]
+[connection signal="body_entered" from="attract_zones/attact_zone2" to="." method="_on_attact_zone_body_entered"]
+[connection signal="body_exited" from="attract_zones/attact_zone2" to="." method="_on_attact_zone_body_exited"]
+[connection signal="body_entered" from="attack_zone" to="." method="_on_attack_zone_body_entered"]
+[connection signal="body_exited" from="attack_zone" to="." method="_on_attack_zone_body_exited"]

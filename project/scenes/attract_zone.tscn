@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://5odbmf74a71v"]
+
+[ext_resource type="Script" path="res://scripts/attact_zone.gd" id="1_gnt2k"]
+
+[node name="attact_zone" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_gnt2k")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

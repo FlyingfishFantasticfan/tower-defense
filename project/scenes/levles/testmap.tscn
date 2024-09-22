@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://f4hl47bn7w0"]
+[gd_scene load_steps=14 format=4 uid="uid://f4hl47bn7w0"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_d1m2q"]
 [ext_resource type="Texture2D" uid="uid://boiwg6ax85vl1" path="res://assets/MiniWorldSprites/Ground/Winter.png" id="2_or7hb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://2qmu3hbmd86u" path="res://assets/MiniWorldSprites/Buildings/Wood/Barracks.png" id="4_di7rr"]
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="4_vlx5g"]
 [ext_resource type="PackedScene" uid="uid://4w8k5qxcnxiu" path="res://scenes/solider.tscn" id="5_wpcgl"]
+[ext_resource type="PackedScene" uid="uid://debmi8rfw4eeo" path="res://scenes/enemys/enemy_basic.tscn" id="7_b0ne5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1c4ix"]
 texture = ExtResource("2_or7hb")
@@ -123,41 +124,8 @@ script = ExtResource("4_vlx5g")
 
 [node name="solider" parent="soilders" instance=ExtResource("5_wpcgl")]
 
-[node name="solider2" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(281.98, 202.833)
-
-[node name="solider3" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(366.243, 178.166)
-
-[node name="solider4" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(483.717, 339.107)
-
-[node name="solider5" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(471.118, 300.68)
-
-[node name="solider6" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(501.356, 216.895)
-
-[node name="solider7" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(602.15, 217.525)
-
-[node name="solider8" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(560.573, 279.261)
-
-[node name="solider9" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(433.321, 289.97)
-
-[node name="solider10" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(369.695, 303.199)
-
-[node name="solider11" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(340.716, 310.759)
-
-[node name="solider12" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(523.405, 170.908)
-
-[node name="solider13" parent="soilders" instance=ExtResource("5_wpcgl")]
-position = Vector2(435.841, 242.093)
-
 [node name="SelectPanel" type="Panel" parent="."]
 theme_override_styles/panel = SubResource("StyleBoxFlat_lxw12")
+
+[node name="EnemyBasic" parent="." instance=ExtResource("7_b0ne5")]
+position = Vector2(432.059, 235.774)
