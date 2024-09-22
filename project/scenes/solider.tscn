@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://scripts/solider.gd" id="2_otdo1"]
 [ext_resource type="Texture2D" uid="uid://dthgbny48yya5" path="res://assets/MiniWorldSprites/User Interface/Highlighted-Boxes.png" id="2_ytu4t"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bebi"]
-size = Vector2(8, 10)
+[sub_resource type="CircleShape2D" id="CircleShape2D_p1hro"]
+radius = 5.29099
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4p6l"]
 atlas = ExtResource("1_mcikt")
@@ -185,6 +185,26 @@ region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xul1q"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"attack_buttom",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"attack_left",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"attack_right",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"attack_up",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m4p6l")
@@ -384,7 +404,7 @@ input_pickable = true
 script = ExtResource("2_otdo1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_2bebi")
+shape = SubResource("CircleShape2D_p1hro")
 
 [node name="Highlighted-boxes" type="Sprite2D" parent="."]
 position = Vector2(0.255005, 5.384)
@@ -393,11 +413,21 @@ texture = ExtResource("2_ytu4t")
 region_enabled = true
 region_rect = Rect2(48, 0, 16, 16)
 
-[node name="animation" type="AnimatedSprite2D" parent="."]
+[node name="Animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xul1q")
-animation = &"idle_buttom"
+animation = &"run_right"
 autoplay = "idle_buttom"
-frame_progress = 0.0372576
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+path_max_distance = 10.0
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 7.0
+neighbor_distance = 50.0
+debug_enabled = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
