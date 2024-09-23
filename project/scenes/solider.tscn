@@ -529,13 +529,12 @@ region_rect = Rect2(48, 0, 16, 16)
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xul1q")
-animation = &"attack_buttom"
+animation = &"attack_up"
 autoplay = "idle_buttom"
 frame = 3
 frame_progress = 1.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-target_desired_distance = 5.0
 path_max_distance = 200.0
 path_postprocessing = 1
 avoidance_enabled = true
@@ -552,6 +551,7 @@ autostart = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="animation_finished" from="Animation" to="." method="_on_animation_animation_finished"]
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

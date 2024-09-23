@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://debmi8rfw4eeo"]
+[gd_scene load_steps=20 format=3 uid="uid://debmi8rfw4eeo"]
 
 [ext_resource type="Script" path="res://scripts/enemys/enemy_basic.gd" id="1_kjgcm"]
 [ext_resource type="PackedScene" uid="uid://5odbmf74a71v" path="res://scenes/attract_zone.tscn" id="2_26x53"]
@@ -8,13 +8,37 @@
 radius = 68.0661
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e18rc"]
-radius = 39.0128
+radius = 138.13
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_enyu0"]
 radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_57be3"]
 radius = 6.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdmxi"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cgbm"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3b1is"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi5lb"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77md8"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(64, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t23ut"]
+atlas = ExtResource("3_upwc2")
+region = Rect2(80, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fepwm"]
 atlas = ExtResource("3_upwc2")
@@ -40,6 +64,29 @@ region = Rect2(64, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_jdmxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cgbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3b1is")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi5lb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77md8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t23ut")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_fepwm")
 }, {
 "duration": 1.0,
@@ -55,8 +102,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_b0o8h")
 }],
 "loop": true,
-"name": &"default",
-"speed": 5.0
+"name": &"move",
+"speed": 24.0
 }]
 
 [node name="EnemyBasic" type="CharacterBody2D"]
@@ -91,6 +138,7 @@ shape = SubResource("CircleShape2D_4klik")
 debug_color = Color(0.734471, 0.241586, 0.984518, 0.42)
 
 [node name="vision_zone" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="vision_zone"]
 shape = SubResource("CircleShape2D_e18rc")
@@ -108,6 +156,14 @@ shape = SubResource("CircleShape2D_57be3")
 
 [node name="animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_47wti")
+animation = &"attack"
+autoplay = "move"
+frame = 5
+frame_progress = 1.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+avoidance_enabled = true
 
 [connection signal="body_entered" from="attract_zones/attact_zone3" to="." method="_on_attact_zone_body_entered"]
 [connection signal="body_exited" from="attract_zones/attact_zone3" to="." method="_on_attact_zone_body_exited"]
@@ -115,5 +171,9 @@ sprite_frames = SubResource("SpriteFrames_47wti")
 [connection signal="body_exited" from="attract_zones/attact_zone4" to="." method="_on_attact_zone_body_exited"]
 [connection signal="body_entered" from="attract_zones/attact_zone" to="." method="_on_attact_zone_body_entered"]
 [connection signal="body_exited" from="attract_zones/attact_zone" to="." method="_on_attact_zone_body_exited"]
+[connection signal="body_entered" from="vision_zone" to="." method="_on_vision_zone_body_entered"]
+[connection signal="body_exited" from="vision_zone" to="." method="_on_vision_zone_body_exited"]
 [connection signal="body_entered" from="attack_zone" to="." method="_on_attack_zone_body_entered"]
 [connection signal="body_exited" from="attack_zone" to="." method="_on_attack_zone_body_exited"]
+[connection signal="animation_finished" from="animation" to="." method="_on_animation_animation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

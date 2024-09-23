@@ -15,7 +15,6 @@ var is_moving :bool = false
 var is_working :bool = false
 var is_attack :bool = false
 
-
 var attract_target:Node2D 
 
 @onready var highlighted_boxes: Sprite2D = $"Highlighted-boxes"
@@ -29,6 +28,7 @@ var attract_target:Node2D
 @export var HP :int = 100
 @export var ATK: int = 5
 @export var RADIUS :int =12
+@export var WORK_SPEED :int =5
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,10 +42,7 @@ func _physics_process(delta: float) -> void:
 		var direction = to_local(navigation_agent_2d.get_next_path_position()).normalized()
 		navigation_agent_2d.set_velocity(direction*SPEED)
 	
-	if velocity == Vector2(0,0):
-		is_moving = false	
 	
-	update_anim()
 
 
 
@@ -60,8 +57,9 @@ func update_anim() -> void :
 	match direction:
 		Direction.left:
 			if is_moving:
+
 				animation.play("run_left")
-			elif is_attack:
+			elif is_attack :
 				animation.play("attack_left")
 			elif is_working:
 				animation.play("work_left")
@@ -70,8 +68,10 @@ func update_anim() -> void :
 		Direction.right:
 			
 			if is_moving:
+
+				
 				animation.play("run_right")
-			elif is_attack:
+			elif is_attack :
 				animation.play("attack_right")
 			elif is_working:
 				animation.play("work_right")
@@ -79,8 +79,10 @@ func update_anim() -> void :
 				animation.play("idle_right")
 		Direction.buttom:
 			if is_moving:
+
+				
 				animation.play("run_buttom")
-			elif is_attack:
+			elif is_attack :
 				animation.play("attack_buttom")
 			elif is_working:
 				animation.play("work_buttom")
@@ -88,6 +90,7 @@ func update_anim() -> void :
 				animation.play("idle_buttom")
 		Direction.up:	
 			if is_moving:
+				
 				animation.play("run_up")
 			elif is_attack:
 				animation.play("attack_up")
@@ -100,7 +103,6 @@ func update_anim() -> void :
 
 func _set_new_target(target) ->void:
 	if is_selected:
-		timer.stop()
 		navigation_agent_2d.target_desired_distance = 15
 		if attract_target!=null && is_attack||is_working:
 			attract_target.is_full = false
@@ -130,22 +132,19 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 			direction = Direction.up
 		elif velocity.y > 0:
 			direction = Direction.buttom
-
 	move_and_slide()
 	
 	pass # Replace with function body.
 
 func _on_navigation_agent_2d_navigation_finished() -> void:
-	velocity = Vector2(0,0)
-	timer.start()
-	print("navi over")
+	is_moving = false
 	pass # Replace with function body.
 
 	
 func _set_new_attract_target(_attract_target)-> void:
 	if is_working||is_attack:
 		return
-	print("set new target")
+
 	if attract_target == null:
 		attract_target = _attract_target
 
@@ -158,20 +157,38 @@ func _set_new_attract_target(_attract_target)-> void:
 
 
 func _on_timer_timeout() -> void:
-
+	update_anim()
 	if attract_target == null || is_moving:
+		is_attack = false
+		is_working = false
 		return
 	if attract_target.is_full == true && not is_attack && not is_working:
 		navigation_agent_2d.target_position = global_position
 		attract_target = null
 		return
 	
-	if global_position.distance_to(attract_target.global_position) >= RADIUS :
-		navigation_agent_2d.target_desired_distance = 6
+	if global_position.distance_to(attract_target.global_position) >= RADIUS*3:
+		navigation_agent_2d.target_desired_distance = 12
 		navigation_agent_2d.target_position = attract_target.global_position
 	else:
-		if attract_target.get_tree().root.is_in_group("Enemy"):
+		if global_position.distance_to(attract_target.global_position) >= RADIUS:
+			navigation_agent_2d.target_desired_distance = 12
+			navigation_agent_2d.target_position = attract_target.global_position
+
+		if attract_target.Type == "Enemy":
 			is_attack = true
 		else :
 			is_working = true
 		attract_target.is_full = true
+
+func _on_animation_animation_finished() -> void:
+	if	attract_target!=null && attract_target.Type == "Enemy":
+		attract_target._do_effect(-ATK)
+		print("攻击")
+
+func _add_hp(value :int)->void:
+	
+	HP += value
+
+	if HP <= 0:
+		queue_free()
