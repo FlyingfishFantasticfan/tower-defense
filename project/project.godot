@@ -19,6 +19,12 @@ config/icon="res://icon.svg"
 
 window/stretch/mode="viewport"
 
+[global_group]
+
+Enemy=""
+Tower=""
+Product=""
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

@@ -123,9 +123,46 @@ script = ExtResource("4_vlx5g")
 [node name="soilders" type="Node" parent="."]
 
 [node name="solider" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(227.275, 263.929)
+
+[node name="solider2" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(234.009, 329.715)
+
+[node name="solider3" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(612.279, 282.572)
+
+[node name="solider4" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(580.289, 184.917)
+
+[node name="solider5" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(571.309, 211.295)
+
+[node name="solider6" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(345.694, 123.743)
+
+[node name="solider7" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(459.063, 375.736)
+
+[node name="solider8" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(606.106, 372.369)
+
+[node name="solider9" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(692.235, 475.848)
+
+[node name="solider10" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(922.98, 634.464)
+
+[node name="solider11" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(1153.72, 793.08)
+
+[node name="solider12" parent="soilders" instance=ExtResource("5_wpcgl")]
+position = Vector2(1384.47, 951.696)
 
 [node name="SelectPanel" type="Panel" parent="."]
 theme_override_styles/panel = SubResource("StyleBoxFlat_lxw12")
 
 [node name="EnemyBasic" parent="." instance=ExtResource("7_b0ne5")]
 position = Vector2(432.059, 235.774)
+
+[node name="EnemyBasic2" parent="." instance=ExtResource("7_b0ne5")]
+position = Vector2(428.48, 320.233)
